@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Product {
+    int id;
+    string name;
+    double price;
+    // Add more attributes as needed
+};
+
+vector<Product> inventory;
+
+// Function to add a new product to the inventory
+void addProduct(int id, string name, double price) {
+    Product newProduct = {id, name, price};
+    inventory.push_back(newProduct);
+}
+
+// Function to remove a product based on its ID
+void removeProduct(int id) {
+    inventory.erase(remove_if(inventory.begin(), inventory.end(),
+                      [id](const Product &product) { return product.id == id; }),
+                      inventory.end());
+}
+
+int main() {
+    // Adding products to the inventory
+    addProduct(1, "Product 1", 19.99);
+    addProduct(2, "Product 2", 29.99);
+    addProduct(3, "Product 3", 9.99);
+
+    // Removing a product by ID (e.g., removing Product 2)
+    removeProduct(2);
+
+    // Displaying the current inventory
+    cout << "Current Inventory:\n";
+    for (const auto &product : inventory) {
+        cout << "ID: " << product.id << ", Name: " << product.name << ", Price: $" << product.price << endl;
+    }
+
+    return 0;
+}
